@@ -129,6 +129,8 @@ module.exports = {
         var adjustEstimate = step.input('adjustEstimate').first();
         var newEstimate = step.input('newEstimate').first();
 
+        var auth = this.authParams(dexter);
+
         var jiraUri = '/issue/' + issue + '/worklog/' + worklogId;
         var dataQuery = {};
 
@@ -141,41 +143,42 @@ module.exports = {
         if (!_.isEmpty(dataQuery))
             jiraUri = jiraUri.concat('?' + querystring.encode(dataQuery));
 
-        if (issue && worklogId) {
-
-            var auth = this.authParams(dexter);
-            var jira = new JiraApi(auth.protocol, auth.host, auth.port, auth.user, auth.password, auth.apiVers);
-
-            var options = {
-                rejectUnauthorized: jira.strictSSL,
-                uri: jira.makeUri(jiraUri),
-                method: 'PUT',
-                json: true,
-                followAllRedirects: true,
-                body: {}
-            };
-
-            jira.doRequest(options, function(error, response, body) {
-
-                if (error)
-                    this.fail(error);
-
-                else if (response.statusCode === 200)
-                    this.complete(this.pickResult(body, globalPickResults));
-
-                else if (response.statusCode === 400)
-                    this.fail(response.statusCode + ': Returned if the input is invalid (e.g. missing required fields, invalid values, and so forth).');
-
-                else if (response.statusCode === 403)
-                    this.fail(response.statusCode + ': Returned if the calling user does not have permission to update the worklog');
-
-                else
-                    this.fail(response.statusCode + ': Something is happened.');
-
-            }.bind(this));
-        } else {
+        if (!issue && !worklogId) {
 
             this.fail('A [issue, worklogId] input need for this module.');
         }
+
+        if (!auth)
+            return;
+
+        var jira = new JiraApi(auth.protocol, auth.host, auth.port, auth.user, auth.password, auth.apiVers);
+
+        var options = {
+            rejectUnauthorized: jira.strictSSL,
+            uri: jira.makeUri(jiraUri),
+            method: 'PUT',
+            json: true,
+            followAllRedirects: true,
+            body: {}
+        };
+
+        jira.doRequest(options, function(error, response, body) {
+
+            if (error)
+                this.fail(error);
+
+            else if (response.statusCode === 200)
+                this.complete(this.pickResult(body, globalPickResults));
+
+            else if (response.statusCode === 400)
+                this.fail(response.statusCode + ': Returned if the input is invalid (e.g. missing required fields, invalid values, and so forth).');
+
+            else if (response.statusCode === 403)
+                this.fail(response.statusCode + ': Returned if the calling user does not have permission to update the worklog');
+
+            else
+                this.fail(response.statusCode + ': Something is happened.');
+
+        }.bind(this));
     }
 };
