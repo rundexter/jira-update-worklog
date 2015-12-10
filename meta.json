@@ -4,23 +4,50 @@
 {
     //Required. Inputs the module expects.
     "inputs": [
-        //e.g.
-        /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "issue",
+            "title":"Issue ID or Key"
+        },
+        {
+            "id": "worklogId",
+            "title":"Id Worklog"
+        },
+        {
+            "id": "adjustEstimate",
+            "title":"Adjust Estimate"
+        },
+        {
+            "id": "newEstimate",
+            "title":"New Estimate"
         }
-        */
     ],
     //Required. Outputs the module emits.
     "outputs": [
-      //e.g.
-      /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "id",
+            "title":"ID"
+        },
+        {
+            "id": "self",
+            "title":"URL"
+        },
+        {
+            "id": "author",
+            "title":"Author"
+        },
+        {
+            "id": "comment",
+            "title":"Comment"
+        },
+        {
+            "id": "started",
+            "title":"Started At"
+        },
+        {
+            "id": "timeSpent",
+            "title":"Time In"
         }
-      */
     ],
+    "icon": "dex-jira",
     "title": "Jira Update Worklog" /* Required.A display name for the module */
 }

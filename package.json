@@ -1,12 +1,14 @@
 {
-    "name": "jira-update-worklog",
-    "version": "0.0.1",
-    "description": "",
-    "main": "index.js",
-    "author": "Alexander",
-    "license": "ISC",
-    "private": true,
-    "dependencies": {
-        "lodash": "^3.9.3"
-    }
+  "name": "jira-update-worklog",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "author": "Alexander",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "jira": "^0.9.2",
+    "lodash": "^3.10.1",
+    "querystring": "^0.2.0"
+  }
 }

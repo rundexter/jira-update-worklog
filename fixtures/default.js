@@ -63,7 +63,10 @@ module.exports = _.merge({
              */
             input: {
                 //Replace VAR1 with the name of an expected input, and add more inputs as needed.
-                VAR1: 'foo'
+                issue: 'TASK-1',
+                worklogId: '1000',
+                adjustEstimate: 'new',
+                newEstimate: '1m'
             }
         }
     }
